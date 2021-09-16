@@ -23,7 +23,7 @@ defmodule Gateway.Models.Data do
   @doc false
   def changeset(data, attrs) do
     data
-    |> cast(attrs, [:id, :region, :energy, :temperature, :salinity, :flow, :geohash])
+    |> cast(attrs, [:id, :region, :energy, :temperature, :salinity, :flow, :geohash, :created_at])
     |> validate_required([:id, :region, :energy, :temperature, :salinity, :flow, :geohash])
   end
 end
