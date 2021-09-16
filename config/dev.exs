@@ -51,3 +51,11 @@ config :phoenix, :stacktrace_depth, 20
 
 # Initialize plugs at runtime for faster development compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :amqp,
+  connections: [
+    myconn: [url: "amqp://guest:guest@localhost:5672"],
+  ],
+  channels: [
+    mychan: [connection: :myconn]
+  ]
