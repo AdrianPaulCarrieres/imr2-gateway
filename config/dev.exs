@@ -54,7 +54,7 @@ config :phoenix, :plug_init_mode, :runtime
 
 config :amqp,
   connections: [
-    conn: [url: "amqp://guest:guest@localhost:5672"],
+    conn: [url: "amqp://guest:guest@localhost:5672"]
   ],
   channels: [
     channel: [connection: :conn]

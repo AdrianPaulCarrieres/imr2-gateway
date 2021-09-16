@@ -42,7 +42,8 @@ defmodule Gateway.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
-      {:amqp, "~> 3.0"}
+      {:amqp, "~> 3.0"},
+      {:phoenix_ecto, "~> 4.1"}
     ]
   end
 
