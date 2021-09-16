@@ -13,9 +13,10 @@ defmodule Gateway.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: Gateway.PubSub},
       # Start the Endpoint (http/https)
-      GatewayWeb.Endpoint
+      GatewayWeb.Endpoint,
       # Start a worker by calling: Gateway.Worker.start_link(arg)
       # {Gateway.Worker, arg}
+      {Gateway.Publisher, :ok}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

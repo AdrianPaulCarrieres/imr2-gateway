@@ -6,6 +6,8 @@ defmodule Gateway.Models.Data do
   Data schema definition
   """
 
+  @derive {Jason.Encoder, only: [:id, :region, :energy, :temperature, :salinity, :flow, :geohash, :created_at]}
+
   @primary_key false
 
   schema "data" do

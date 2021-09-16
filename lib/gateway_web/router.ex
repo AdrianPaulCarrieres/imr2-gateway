@@ -7,6 +7,8 @@ defmodule GatewayWeb.Router do
 
   scope "/api", GatewayWeb do
     pipe_through :api
+
+    post "/data", DataController, :create
   end
 
   # Enables LiveDashboard only for development

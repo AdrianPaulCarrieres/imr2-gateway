@@ -6,14 +6,15 @@ defmodule GatewayWeb.DataController do
   action_fallback GatewayWeb.FallbackController
 
   def create(conn, %{"data" => data_params}) do
-    with {:ok, %Data{} = _data} <- create_data(data_params) do
-      # TODO INSERT IN MQ
+    with {:ok, %Data{} = data} <- create_data(data_params) do
+
+      Gateway.Publisher.publish(data)
 
       send_resp(conn, :ok, "OK")
     end
   end
 
-  defp create_data(attrs \\ %{}) do
+  defp create_data(attrs) do
     %Data{}
     |> Data.changeset(attrs)
     |> Ecto.Changeset.apply_action(:insert)
