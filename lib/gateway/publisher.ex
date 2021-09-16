@@ -30,7 +30,7 @@ defmodule Gateway.Publisher do
   def handle_cast({:publish, element}, %{} = state) do
     Logger.info("handling cast aaaza")
 
-    message = Jason.encode(element)
+    message = Jason.encode!(element)
 
     Logger.info("received message #{inspect(message)}")
 
