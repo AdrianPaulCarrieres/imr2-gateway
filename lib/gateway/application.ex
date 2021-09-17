@@ -17,8 +17,8 @@ defmodule Gateway.Application do
       # Start a worker by calling: Gateway.Worker.start_link(arg)
       # {Gateway.Worker, arg}
       # {Gateway.Publisher, :ok}
-      {Gateway.StageQueue, :useless},
-      {Gateway.StagePublisher, :useless}
+      {Gateway.StageQueue, :ok},
+      {Gateway.StagePublisher, :ok}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

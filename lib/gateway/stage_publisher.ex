@@ -21,6 +21,7 @@ defmodule Gateway.StagePublisher do
   end
 
   def handle_events(events, _from, channel) do
+    Logger.info("Publishing #{inspect(events)}")
 
     events
     |> Enum.each(&AMQP.Basic.publish(channel, "", "imr2", &1))

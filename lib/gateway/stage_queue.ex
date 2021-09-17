@@ -13,46 +13,25 @@ defmodule Gateway.StageQueue do
 
   @spec push(any) :: :ok
   def push(element) do
-    GenServer.cast(__MODULE__, {:push, element})
+    GenStage.cast(__MODULE__, {:element, element})
   end
 
   @impl true
-  @spec init(any) :: {:producer, :queue.queue(any)}
   def init(_) do
     Logger.debug("StageQueue init")
-    {:producer, :queue.new()}
+    {:producer, []}
   end
 
   @impl true
-  @spec handle_cast({:push, any}, :queue.queue(any)) :: {:noreply, :queue.queue(any)}
-  def handle_cast({:push, element}, queue) do
-    queue = :queue.in(element, queue)
-
-    {:noreply, queue}
+  def handle_cast({:element, element}, state) do
+    {:noreply, [element], state}
   end
 
   @impl true
-  def handle_demand(demand, queue) when demand > 0 do
-    %{elements: elements, queue: queue} =
-      Enum.reduce_while(1..demand, %{elements: [], queue: queue}, fn _count,
-                                                                     %{
-                                                                       elements: elements,
-                                                                       queue: q
-                                                                     } = acc ->
-        case :queue.out(q) do
-          {{:value, element}, q} ->
-            elements = [element | elements]
+  def handle_demand(demand, state) do
+    Logger.info("StageQueue received demand for #{demand} events")
 
-            acc = %{acc | elements: elements, queue: q}
-            {:continue, acc}
-
-          {:empty, q} ->
-            acc = %{acc | queue: q}
-            {:halt, acc}
-        end
-      end)
-
-    events = elements |> Enum.reverse()
-    {:noreply, events, queue}
+    events = []
+    {:noreply, events, state}
   end
 end
