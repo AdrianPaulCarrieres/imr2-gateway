@@ -9,7 +9,7 @@ defmodule GatewayWeb.DataController do
     with {:ok, %Data{} = data} <- create_data(data_params) do
 
       #Gateway.Publisher.publish(data)
-      data |> Jason.encode!() |> Gateway.StageQueue.push()
+      data |> Jason.encode!() |> GatewayPipeline.StageQueue.push()
 
       send_resp(conn, :ok, "OK")
     end
