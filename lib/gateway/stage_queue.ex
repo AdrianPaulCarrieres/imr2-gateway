@@ -19,6 +19,7 @@ defmodule Gateway.StageQueue do
   @impl true
   @spec init(any) :: {:producer, :queue.queue(any)}
   def init(_) do
+    Logger.debug("StageQueue init")
     {:producer, :queue.new()}
   end
 
@@ -45,7 +46,7 @@ defmodule Gateway.StageQueue do
             acc = %{acc | elements: elements, queue: q}
             {:continue, acc}
 
-          {{:empty, q}} ->
+          {:empty, q} ->
             acc = %{acc | queue: q}
             {:halt, acc}
         end

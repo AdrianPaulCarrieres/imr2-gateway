@@ -16,7 +16,9 @@ defmodule Gateway.Application do
       GatewayWeb.Endpoint,
       # Start a worker by calling: Gateway.Worker.start_link(arg)
       # {Gateway.Worker, arg}
-      {Gateway.Publisher, :ok}
+      # {Gateway.Publisher, :ok}
+      {Gateway.StageQueue, :useless},
+      {Gateway.StagePublisher, :useless}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
