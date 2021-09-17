@@ -8,7 +8,7 @@ defmodule Gateway.StageQueue do
 
   @spec start_link(any) :: :ignore | {:error, any} | {:ok, pid}
   def start_link(args) do
-    GenServer.start_link(__MODULE__, args, name: __MODULE__)
+    GenStage.start_link(__MODULE__, args, name: __MODULE__)
   end
 
   @spec push(any) :: :ok
