@@ -45,7 +45,7 @@ defmodule Gateway.MixProject do
       {:amqp, "~> 3.0"},
       {:phoenix_ecto, "~> 4.1"},
       {:gen_stage, "~> 1.0"},
-      {:poolboy, "~> 1.5.1"}
+      {:poolboy, "~> 1.5.2"}
     ]
   end
 
