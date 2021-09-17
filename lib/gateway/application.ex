@@ -17,8 +17,9 @@ defmodule Gateway.Application do
       # Start a worker by calling: Gateway.Worker.start_link(arg)
       # {Gateway.Worker, arg}
       # {Gateway.Publisher, :ok}
-      {GatewayPipeline.StageQueue, :ok},
-      {GatewayPipeline.StagePublisher, :ok}
+      :poolboy.child_spec(:pool_worker, poolboy_config()),
+      {GatewayPipeline.StageQueue, nil},
+      {GatewayPipeline.StagePublisher, nil}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -33,5 +34,14 @@ defmodule Gateway.Application do
   def config_change(changed, _new, removed) do
     GatewayWeb.Endpoint.config_change(changed, removed)
     :ok
+  end
+
+  defp poolboy_config do
+    [
+      name: {:local, :pool_worker},
+      worker_module: Gateway.PoolWorker,
+      size: 10,
+      max_overflow: 5
+    ]
   end
 end

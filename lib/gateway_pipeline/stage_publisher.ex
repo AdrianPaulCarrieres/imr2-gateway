@@ -7,25 +7,22 @@ defmodule GatewayPipeline.StagePublisher do
   """
 
   def start_link(_args) do
-    GenStage.start_link(__MODULE__, :useless)
+    GenStage.start_link(__MODULE__, :nil)
   end
 
   def init(_) do
-
-    {:ok, connection} = AMQP.Connection.open
-    {:ok, channel} = AMQP.Channel.open(connection)
-    AMQP.Queue.declare(channel, "imr2")
-
     Logger.debug("StagePublisher init")
-    {:consumer, channel, subscribe_to: [Gateway.StageQueue]}
+    {:consumer, nil, subscribe_to: [GatewayPipeline.StageQueue]}
   end
 
-  def handle_events(events, _from, channel) do
+  def handle_events(events, _from, state) do
     Logger.info("Publishing #{inspect(events)}")
 
-    events
-    |> Enum.each(&AMQP.Basic.publish(channel, "", "imr2", &1))
+    worker_pid = :poolboy.checkout(:pool_worker)
 
-    {:noreply, [], channel}
+    events
+    |> Enum.each(&GenServer.call(worker_pid, {:publish, &1}))
+
+    {:noreply, [], state}
   end
 end
