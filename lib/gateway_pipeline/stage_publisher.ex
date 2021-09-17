@@ -1,4 +1,4 @@
-defmodule Gateway.StagePublisher do
+defmodule GatewayPipeline.StagePublisher do
   use GenStage
   require Logger
 

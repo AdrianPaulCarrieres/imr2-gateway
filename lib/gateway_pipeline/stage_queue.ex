@@ -1,4 +1,4 @@
-defmodule Gateway.StageQueue do
+defmodule GatewayPipeline.StageQueue do
   use GenStage
   require Logger
 
