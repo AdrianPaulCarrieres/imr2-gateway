@@ -19,7 +19,7 @@ defmodule Gateway.Application do
       # {Gateway.Publisher, :ok}
       :poolboy.child_spec(:pool_worker, poolboy_config()),
       {GatewayPipeline.StageQueue, nil},
-      {GatewayPipeline.StagePublisher, nil}
+      {GatewayPipeline.SupervisorPublisher, nil}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
@@ -40,7 +40,7 @@ defmodule Gateway.Application do
     [
       name: {:local, :pool_worker},
       worker_module: Gateway.PoolWorker,
-      size: 10,
+      size: 20,
       max_overflow: 5
     ]
   end

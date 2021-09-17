@@ -22,7 +22,7 @@ defmodule GatewayPipeline.SupervisorPublisher do
     opts = [
       strategy: :one_for_one,
       subscribe_to: [
-        {StagePublisher, max_demand: 5}
+        {GatewayPipeline.StageQueue, min_demand: 0, max_demand: 1000}
       ]
     ]
 

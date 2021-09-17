@@ -29,7 +29,6 @@ defmodule GatewayPipeline.StageQueue do
 
   @impl true
   def handle_demand(demand, state) do
-    Logger.info("StageQueue received demand for #{demand} events")
 
     events = []
     {:noreply, events, state}

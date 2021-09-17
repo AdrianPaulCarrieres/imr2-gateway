@@ -30,7 +30,6 @@ defmodule Gateway.PoolWorker do
   def handle_call({:publish, element}, _from, channel) do
     message = Jason.encode!(element)
 
-    Logger.info("received message #{inspect(message)}")
 
     :ok = AMQP.Basic.publish(channel, "", "imr2", message)
 
